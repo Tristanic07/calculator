@@ -62,7 +62,8 @@ export default function App() {
   function invertSign() {
     const invert_sign = -1;
     if (prevValue !== "" && value === "") {
-      setPrevValue((invert_sign * parseFloat(prevValue)).toString());
+      setValue((invert_sign * parseFloat(prevValue)).toString());
+      setPrevValue("");
     } else {
       setValue((invert_sign * parseFloat(value)).toString());
     }
@@ -90,13 +91,16 @@ export default function App() {
   function handleOperator(buttonValue: string) {
     if (prevValue !== "" && operator !== "" && value === " ") return;
     if (value === "0" && prevValue === "") return;
+
     setOperator(buttonValue);
-    if (prevValue !== "" && value === "") null;
-    if (prevValue !== "") {
+
+    if (prevValue !== "" && operator !== "") {
       handleEqual();
-    } else {
+    } else if (prevValue === "" && operator === "") {
       setPrevValue(value);
       setValue(" ");
+    } else if (prevValue !== "" && operator === "") {
+      setDisplay(" ");
     }
   }
 
@@ -129,6 +133,10 @@ export default function App() {
     setDisplay(value);
   }, [value]);
 
+  console.log("operator:", operator);
+  console.log("prev", prevValue);
+  console.log("Display: ", display);
+
   return (
     <div className="flex items-center justify-center h-screen w-screen bg-yellow-300">
       <div className="flex flex-col justify-center items-center border-2 border-black bg-gray-800 rounded-md gap-1 p-1">
@@ -147,14 +155,11 @@ export default function App() {
               ["4", "5", "6", "-"],
               ["1", "2", "3", "+"],
               ["0", ".", "="],
-            ].map((row, rowindex) =>
-              row.map((button, buttonindex) => (
-                <ButtonStyle
-                  key={`button-${rowindex}-${buttonindex}`}
-                  text={button}
-                />
-              ))
-            )}
+            ]
+              .flat()
+              .map((button, index) => (
+                <ButtonStyle key={index} text={button} />
+              ))}
           </ButtonContext.Provider>
         </div>
       </div>
