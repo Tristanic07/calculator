@@ -142,7 +142,11 @@ export default function App() {
       <div className="flex flex-col justify-center items-center border-2 border-black bg-gray-800 rounded-md gap-1 p-1">
         <input
           type="text"
-          value={display ? display : prevValue}
+          value={
+            display
+              ? display.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              : prevValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+          }
           disabled
           className="bg-gray-700 h-14 rounded-md w-52 text-right text-white text-4xl"
         />
