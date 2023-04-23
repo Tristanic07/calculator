@@ -74,7 +74,6 @@ export default function App() {
 
   function handleOperator(buttonValue: string) {
     setOperator(buttonValue);
-    if (prevValue !== "" && value === "") null;
     if (prevValue !== "") {
       handleEqual();
     } else {

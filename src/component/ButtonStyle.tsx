@@ -6,10 +6,10 @@ interface IbuttonProps {
 function ButtonStyle({ text, onClick }: IbuttonProps) {
   return (
     <button
-      className={`${
+      className={`h-12 text-white  rounded-lg ${
         text === "="
-          ? "col-span-2 bg-red-700 hover:bg-red-800 text-white h-12 rounded-lg"
-          : "bg-violet-800 hover:bg-violet-900 text-white h-12 col-span-1 rounded-lg"
+          ? "col-span-2 bg-red-700 hover:bg-red-800 "
+          : "bg-violet-800 hover:bg-violet-900  col-span-1 "
       }`}
       onClick={onClick}
     >
